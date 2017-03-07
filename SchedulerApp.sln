@@ -12,11 +12,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SchedulerApp.Data", "src\SchedulerApp.Data\SchedulerApp.Data.xproj", "{236A815B-DAB4-4ABB-BE47-C7AEA035FF02}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SchedulerApp.Model", "src\SchedulerApp.Model\SchedulerApp.Model.xproj", "{2FAADBFC-DBB9-458B-97F7-E5033BE63632}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SchedulerApp.Service", "src\SchedulerApp.Service\SchedulerApp.Service.xproj", "{BBFCB9A1-7675-4B5E-BD3B-F9D8139830D8}"
-EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SchedulerApp.Website", "src\SchedulerApp.Website\SchedulerApp.Website.xproj", "{6B385308-2807-48A1-862E-B8B8D5D7B310}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SchedulerApp.Domain", "src\SchedulerApp.Domain\SchedulerApp.Domain.xproj", "{371A4F35-424C-4A18-A4CA-3F5A67DE0A73}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,26 +26,21 @@ Global
 		{236A815B-DAB4-4ABB-BE47-C7AEA035FF02}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{236A815B-DAB4-4ABB-BE47-C7AEA035FF02}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{236A815B-DAB4-4ABB-BE47-C7AEA035FF02}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2FAADBFC-DBB9-458B-97F7-E5033BE63632}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2FAADBFC-DBB9-458B-97F7-E5033BE63632}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2FAADBFC-DBB9-458B-97F7-E5033BE63632}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2FAADBFC-DBB9-458B-97F7-E5033BE63632}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BBFCB9A1-7675-4B5E-BD3B-F9D8139830D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BBFCB9A1-7675-4B5E-BD3B-F9D8139830D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BBFCB9A1-7675-4B5E-BD3B-F9D8139830D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BBFCB9A1-7675-4B5E-BD3B-F9D8139830D8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6B385308-2807-48A1-862E-B8B8D5D7B310}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6B385308-2807-48A1-862E-B8B8D5D7B310}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B385308-2807-48A1-862E-B8B8D5D7B310}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B385308-2807-48A1-862E-B8B8D5D7B310}.Release|Any CPU.Build.0 = Release|Any CPU
+		{371A4F35-424C-4A18-A4CA-3F5A67DE0A73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{371A4F35-424C-4A18-A4CA-3F5A67DE0A73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{371A4F35-424C-4A18-A4CA-3F5A67DE0A73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{371A4F35-424C-4A18-A4CA-3F5A67DE0A73}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{236A815B-DAB4-4ABB-BE47-C7AEA035FF02} = {F92BDF89-CE03-47D4-B355-9F6153F2565D}
-		{2FAADBFC-DBB9-458B-97F7-E5033BE63632} = {F92BDF89-CE03-47D4-B355-9F6153F2565D}
-		{BBFCB9A1-7675-4B5E-BD3B-F9D8139830D8} = {F92BDF89-CE03-47D4-B355-9F6153F2565D}
 		{6B385308-2807-48A1-862E-B8B8D5D7B310} = {F92BDF89-CE03-47D4-B355-9F6153F2565D}
+		{371A4F35-424C-4A18-A4CA-3F5A67DE0A73} = {F92BDF89-CE03-47D4-B355-9F6153F2565D}
 	EndGlobalSection
 EndGlobal

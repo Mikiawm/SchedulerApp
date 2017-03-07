@@ -12,17 +12,7 @@ namespace SchedulerApp.Data.Repositories
     {
         public ContactRepository(IDbFactory dbFactory)
             : base(dbFactory) { }
-
-        public void Delete(Expression<Func<Contact, bool>> where)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Contact Get(Expression<Func<Contact, bool>> where)
-        {
-            throw new NotImplementedException();
-        }
-
+ 
         public Contact GetContactByName(string contactName)
         {
             var category = this.DbContext.Contacts.Where(c => c.Name == contactName).FirstOrDefault();
@@ -30,15 +20,22 @@ namespace SchedulerApp.Data.Repositories
             return category;
         }
 
-        public IEnumerable<Contact> GetMany(Expression<Func<Contact, bool>> where)
-        {
-            throw new NotImplementedException();
-        }
-
         public override void Update(Contact entity)
         {
             entity.DateUpdated = DateTime.Now;
             base.Update(entity);
+        }
+        public override void Add(Contact entity)
+        {
+            base.Add(entity);
+        }
+        public override void Delete(Contact entity)
+        {
+            base.Delete(entity);
+        }
+        public override Contact GetById(int id)
+        {
+            return base.GetById(id);
         }
     }
 

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SchedulerApp.Data.Configuration;
 using SchedulerApp.Domain.Services;
+using SchedulerApp.Website.ViewModels;
 
 namespace SchedulerApp.Website.Controllers
 {
@@ -27,9 +29,10 @@ namespace SchedulerApp.Website.Controllers
 
             var contacts = contactServices.GetContacts();
             ViewData["Message"] = "Your contact page.";
-
-            return View(contacts);
+            
+            return View(ContactViewModel.DisplayContacts(contacts));
         }
+
 
         public IActionResult Error()
         {

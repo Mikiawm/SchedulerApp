@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<SchedulerApp.Website.ViewModels.ContactViewModel>
 @{
     ViewData["Title"] = "Contact";
 }
@@ -8,7 +8,8 @@
     <div>
         @foreach (var item in Model)
         {
-            
+            @Html.DisplayFor(modelItem => item.Name);
+            @Html.DisplayFor(modelItem => item.PhoneNumber);
         }
     </div>
 </head>

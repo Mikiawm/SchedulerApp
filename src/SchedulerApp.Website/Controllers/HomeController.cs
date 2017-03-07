@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SchedulerApp.Domain.Services;
 
 namespace SchedulerApp.Website.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IContactService contactServices;
         public IActionResult Index()
         {
             return View();
@@ -22,9 +24,11 @@ namespace SchedulerApp.Website.Controllers
 
         public IActionResult Contact()
         {
+
+            var contacts = contactServices.GetContacts();
             ViewData["Message"] = "Your contact page.";
 
-            return View();
+            return View(contacts);
         }
 
         public IActionResult Error()

@@ -26,7 +26,8 @@
       "type": "platform"
     },
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
-    "SchedulerApp.Data": "1.0.0-*"
+    "SchedulerApp.Data": "1.0.0-*",
+    "SchedulerApp.Domain": "1.0.0-*"
   },
 
   "tools": {

@@ -1,5 +1,7 @@
 ﻿{
   "dependencies": {
+    "Autofac": "4.4.0",
+    "Autofac.Extensions.DependencyInjection": "4.0.0",
     "Microsoft.ApplicationInsights.AspNetCore": "1.0.0",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",
     "Microsoft.AspNetCore.Mvc": "1.0.1",
@@ -44,9 +46,7 @@
       ]
     }
   },
-  "ConnectionStrings": {
-    "DefaultConnection": "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Michal\\Documents\\localDb.mdf;Integrated Security=True;Connect Timeout=30"
-  },
+
   "Logging": {
     "IncludeScopes": false,
     "LogLevel": {

@@ -29,6 +29,13 @@ namespace SchedulerApp.Data
         {
             base.SaveChanges();
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Employee>().ToTable("Employee");
+            modelBuilder.Entity<Contact>().ToTable("Contact");
+            modelBuilder.Entity<Event>().ToTable("Event");
+            modelBuilder.Entity<Location>().ToTable("Location");
+        }
     }
 
 

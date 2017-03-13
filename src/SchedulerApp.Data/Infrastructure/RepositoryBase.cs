@@ -10,29 +10,15 @@ namespace SchedulerApp.Data.Infrastructure
 {
     public abstract class RepositoryBase<T> where T : class
     {
-        #region Properties
         private SchedulerContext dataContext;
         private readonly DbSet<T> dbSet;
+        private SchedulerContext dbContext;
 
-        protected IDbFactory DbFactory
+        public RepositoryBase(SchedulerContext dbContext)
         {
-            get;
-            private set;
+            this.dbContext = dbContext;
         }
 
-        protected SchedulerContext DbContext
-        {
-            get { return dataContext ?? (dataContext = DbFactory.Init()); }
-        }
-        #endregion
-
-        protected RepositoryBase(IDbFactory dbFactory)
-        {
-            DbFactory = dbFactory;
-            dbSet = DbContext.Set<T>();
-        }
-
-        #region Implementation
         public virtual void Add(T entity)
         {
             dbSet.Add(entity);
@@ -76,7 +62,7 @@ namespace SchedulerApp.Data.Infrastructure
             return dbSet.Where(where).FirstOrDefault<T>();
         }
 
-        #endregion
+
 
     }
 }

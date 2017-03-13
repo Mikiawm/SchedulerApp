@@ -5,13 +5,12 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using SchedulerApp.Data;
 
-namespace SchedulerApp.Website.Migrations
+namespace SchedulerApp.Data.Migrations
 {
     [DbContext(typeof(SchedulerContext))]
-    [Migration("20170306205415_SchedulerApp")]
-    partial class SchedulerApp
+    partial class SchedulerContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
@@ -24,6 +23,8 @@ namespace SchedulerApp.Website.Migrations
 
                     b.Property<string>("Adress");
 
+                    b.Property<DateTime>("DateUpdated");
+
                     b.Property<int?>("LocationId");
 
                     b.Property<string>("Name");
@@ -34,7 +35,7 @@ namespace SchedulerApp.Website.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("Contacts");
+                    b.ToTable("Contact");
                 });
 
             modelBuilder.Entity("SchedulerApp.Data.Configuration.Employee", b =>
@@ -54,7 +55,7 @@ namespace SchedulerApp.Website.Migrations
 
                     b.HasIndex("EventId");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employee");
                 });
 
             modelBuilder.Entity("SchedulerApp.Data.Configuration.Event", b =>
@@ -78,7 +79,7 @@ namespace SchedulerApp.Website.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("Events");
+                    b.ToTable("Event");
                 });
 
             modelBuilder.Entity("SchedulerApp.Data.Configuration.Location", b =>
@@ -90,7 +91,7 @@ namespace SchedulerApp.Website.Migrations
 
                     b.HasKey("LocationId");
 
-                    b.ToTable("Locations");
+                    b.ToTable("Location");
                 });
 
             modelBuilder.Entity("SchedulerApp.Data.Configuration.Contact", b =>

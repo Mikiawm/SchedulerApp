@@ -20,14 +20,15 @@ namespace SchedulerApp.Domain.Services
     public class ContactServices : IContactService
     {
         private readonly IContactRepository contactRepository;
-        private readonly IUnitOfWork unitOfWork;
 
-        public ContactServices(IContactRepository contactRepository, IUnitOfWork unitOfWork)
+        public ContactServices(IContactRepository contactRepository)
         {
             this.contactRepository = contactRepository;
-            this.unitOfWork = unitOfWork;
         }
+        public ContactServices()
+        {
 
+        }
         public void CreateContact(Contact contact)
         {
             contactRepository.Add(contact);
@@ -59,7 +60,7 @@ namespace SchedulerApp.Domain.Services
 
         public void SaveContact()
         {
-            unitOfWork.Commit();
+            throw new NotImplementedException();
         }
     }
 }

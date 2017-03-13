@@ -10,8 +10,9 @@ namespace SchedulerApp.Data.Repositories
 {
     public class EmployeeRepository : RepositoryBase<Employee>, IEmployeeRepository
     {
-        public EmployeeRepository(IDbFactory dbFactory)
-            : base(dbFactory) { }
+        private readonly SchedulerContext dbContext;
+        public EmployeeRepository(SchedulerContext dbContext)
+            : base(dbContext) { }
 
         void IRepository<Employee>.Add(Employee entity)
         {

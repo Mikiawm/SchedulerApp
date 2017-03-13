@@ -10,12 +10,13 @@ namespace SchedulerApp.Data.Repositories
 {
     public class ContactRepository: RepositoryBase<Contact>, IContactRepository
     {
-        public ContactRepository(IDbFactory dbFactory)
-            : base(dbFactory) { }
+        private readonly SchedulerContext dbContext;
+        public ContactRepository(SchedulerContext dbContext)
+            : base(dbContext) { }
  
         public Contact GetContactByName(string contactName)
         {
-            var category = this.DbContext.Contacts.Where(c => c.Name == contactName).FirstOrDefault();
+            var category = this.dbContext.Contacts.Where(c => c.Name == contactName).FirstOrDefault();
 
             return category;
         }

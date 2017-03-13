@@ -10,7 +10,8 @@ namespace SchedulerApp.Data.Repositories
 {
     public class EventRepository : RepositoryBase<Event>, IEventRepository
     {
-        public EventRepository(IDbFactory dbFactory) : base(dbFactory)
+        private readonly SchedulerContext dbContext;
+        public EventRepository(SchedulerContext dbContext) : base(dbContext)
         {
         }
 

@@ -8,17 +8,19 @@ using System.Threading.Tasks;
 
 namespace SchedulerApp.Data.Infrastructure
 {
-    public abstract class RepositoryBase<T> where T : class
+    public class RepositoryBase<T> : IRepository<T> where T : class
     {
-        private SchedulerContext dataContext;
-        private readonly DbSet<T> dbSet;
+        private DbSet<T> dbSet;
         private SchedulerContext dbContext;
 
         public RepositoryBase(SchedulerContext dbContext)
         {
             this.dbContext = dbContext;
         }
-
+        private DbSet<T> Entities
+        {
+            get { return dbSet ?? (dbSet = dbContext.Set<T>()); }
+        }
         public virtual void Add(T entity)
         {
             dbSet.Add(entity);
@@ -27,7 +29,7 @@ namespace SchedulerApp.Data.Infrastructure
         public virtual void Update(T entity)
         {
             dbSet.Attach(entity);
-            dataContext.Entry(entity).State = EntityState.Modified;
+            dbContext.Entry(entity).State = EntityState.Modified;
         }
 
         public virtual void Delete(T entity)

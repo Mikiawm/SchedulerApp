@@ -39,44 +39,40 @@ namespace SchedulerApp.Website
         public IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
             services.AddMvc();
             services.AddApplicationInsightsTelemetry(Configuration);
 
             var connection = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog = SchedulerApp; Integrated Security=True;Connect Timeout=15;";
-            services.AddScoped<IContactRepository, ContactRepository>();
-            
+
             services.AddDbContext<SchedulerContext>(options => options.UseSqlServer(connection, b => b.MigrationsAssembly("SchedulerApp.Data")));
-            //return SetAutofacContainer(services);
+            return SetAutofacContainer(services);
 
         }
         public IContainer ApplicationContainer { get; private set; }
-        //private IServiceProvider SetAutofacContainer(IServiceCollection services)
-        //{
-        //    var builder = new ContainerBuilder();
+        private IServiceProvider SetAutofacContainer(IServiceCollection services)
+        {
+            var builder = new ContainerBuilder();
 
-        //    // Register dependencies, populate the services from
-        //    // the collection, and build the container. If you want
-        //    // to dispose of the container at the end of the app,
-        //    // be sure to keep a reference to it as a property or field.
-        //    builder.RegisterType<UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
-        //    builder.RegisterType<ContactRepository>().As<IContactRepository>().InstancePerRequest();
-        //    builder.RegisterType<DbFactory>().As<IDbFactory>().InstancePerRequest();
+            // Register dependencies, populate the services from
+            // the collection, and build the container. If you want
+            // to dispose of the container at the end of the app,
+            // be sure to keep a reference to it as a property or field.
+            builder.RegisterType<ContactServices>().As<IContactService>().InstancePerLifetimeScope();
+            builder.RegisterGeneric(typeof(RepositoryBase<>)).As(typeof(IRepository<>));
+            
 
-        //    builder.RegisterType<ContactServices>().As<IContactService>().InstancePerMatchingLifetimeScope();
+            //builder.RegisterType<ContactServices>().As<IContactService>();
+            builder.Populate(services);
+            var ApplicationContainer = builder.Build();
+            //ApplicationContainer.Resolve<IContactRepository>();
+            //scope.Resolve<IUnitOfWork>();
 
-
-        //    //builder.RegisterType<ContactServices>().As<IContactService>();
-        //    builder.Populate(services);
-        //    var ApplicationContainer = builder.Build();
-        //    //ApplicationContainer.Resolve<IContactRepository>();
-        //    //scope.Resolve<IUnitOfWork>();
-
-        //    // Create the IServiceProvider based on the container.
-        //    return new AutofacServiceProvider(ApplicationContainer);
-        //}
+            // Create the IServiceProvider based on the container.
+            return new AutofacServiceProvider(ApplicationContainer);
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, SchedulerContext context)
@@ -107,7 +103,6 @@ namespace SchedulerApp.Website
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
             DbInitializer.Initialize(context);
-            //appLifetime.ApplicationStopped.Register(() => this.ApplicationContainer.Dispose());
         }
     }
 }

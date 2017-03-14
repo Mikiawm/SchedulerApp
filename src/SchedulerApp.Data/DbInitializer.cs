@@ -24,7 +24,7 @@ namespace SchedulerApp.Data
             new Employee{Name="Meredith",Adress="Alonso",PhoneNumber="(323) 789-1103"},
             new Employee{Name="Arturo",Adress="Anand",PhoneNumber="(457) 213-9438"},
             new Employee{Name="Gytis",Adress="Barzdukas",PhoneNumber="(663) 646-4717"},
-            new Employee{Name="Yan",Adress="Li",PhoneNumber="(271) 844-9365"},
+            new Employee{Name="Yan",Adress="Li",PhoneNumber="(271) 844-936Update-Database5"},
             new Employee{Name="Peggy",Adress="Justice",PhoneNumber="(722) 279-7386"},
             new Employee{Name="Laura",Adress="Norman",PhoneNumber="(914) 976-3869"},
             new Employee{Name="Nino",Adress="Olivetto",PhoneNumber="(224) 127-0732"}
@@ -48,6 +48,22 @@ namespace SchedulerApp.Data
             foreach (Location l in locations)
             {
                 context.Locations.Add(l);
+            }
+            context.SaveChanges();
+            var contacts = new Contact[]
+            {
+             new Contact{Name="Carson",DateUpdated = DateTime.Now,Adress="Alexander",PhoneNumber="(283) 843-9772"},
+            new Contact{Name="Meredith",DateUpdated = DateTime.Now,Adress="Alonso",PhoneNumber="(323) 789-1103"},
+            new Contact{Name="Arturo",DateUpdated = DateTime.Now,Adress="Anand",PhoneNumber="(457) 213-9438"},
+            new Contact{Name="Gytis",DateUpdated = DateTime.Now,Adress="Barzdukas",PhoneNumber="(663) 646-4717"},
+            new Contact{Name="Yan",DateUpdated = DateTime.Now,Adress="Li",PhoneNumber="(271) 844-936Update-Database5"},
+            new Contact{Name="Peggy",DateUpdated = DateTime.Now,Adress="Justice",PhoneNumber="(722) 279-7386"},
+            new Contact{Name="Laura",DateUpdated = DateTime.Now,Adress="Norman",PhoneNumber="(914) 976-3869"},
+            new Contact{Name="Nino",DateUpdated = DateTime.Now,Adress="Olivetto",PhoneNumber="(224) 127-0732"}
+            };
+            foreach (Contact c in contacts)
+            {
+                context.Contacts.Add(c);
             }
             context.SaveChanges();
         }

@@ -19,11 +19,11 @@ namespace SchedulerApp.Domain.Services
 
     public class ContactServices : IContactService
     {
-        private readonly IContactRepository contactRepository;
+        private readonly IRepository<Contact> _contactRepository;
 
-        public ContactServices(IContactRepository contactRepository)
+        public ContactServices(IRepository<Contact> contactRepository)
         {
-            this.contactRepository = contactRepository;
+            _contactRepository = contactRepository;
         }
         public ContactServices()
         {
@@ -31,30 +31,29 @@ namespace SchedulerApp.Domain.Services
         }
         public void CreateContact(Contact contact)
         {
-            contactRepository.Add(contact);
+            _contactRepository.Add(contact);
         }
 
         public Contact GetContact(string name = null)
         {
-            var contact = contactRepository.GetContactByName(name);
-            return contact;
+            throw new NotImplementedException();
         }
 
         public Contact GetContact(int id)
         {
-            var contact = contactRepository.GetById(id);
+            var contact = _contactRepository.GetById(id);
             return contact;
         }
 
         public IEnumerable<Contact> GetContacts(string name = null)
         {
-            if(string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(name))
             {
-                return contactRepository.GetAll();
+                return _contactRepository.GetAll();
             }
             else
             {
-                return contactRepository.GetAll().Where(c => c.Name == name);
+                return _contactRepository.GetAll().Where(c => c.Name == name);
             }
         }
 

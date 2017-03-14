@@ -19,6 +19,10 @@ namespace SchedulerApp.Website.Controllers
         }
         public IActionResult Index()
         {
+            if(contactService == null)
+            {
+                throw new ArgumentNullException("contacService");
+            }
             IEnumerable<Contact> contacts;
             contacts = contactService.GetContacts();
             ViewData["Message"] = "Your contact page.";

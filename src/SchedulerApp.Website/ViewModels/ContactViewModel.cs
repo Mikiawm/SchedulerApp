@@ -13,16 +13,19 @@ namespace SchedulerApp.Website.ViewModels
         public string PhoneNumber { get; set; }
         public string Adress { get; set; }
 
+        public ContactViewModel(string name, string phoneNumber, string adress)
+        {
+            Name = name;
+            PhoneNumber = phoneNumber;
+            Adress = adress;
+        }
 
         public static IEnumerable<ContactViewModel> DisplayContacts(IEnumerable<Contact> contacts)
         {
             List<ContactViewModel> returnValue = new List<ContactViewModel>();
             foreach (var item in contacts)
             {
-                ContactViewModel temp = null;
-                temp.Name = item.Name;
-                temp.PhoneNumber = item.PhoneNumber;
-                temp.Adress = item.Adress;
+                ContactViewModel temp = new ContactViewModel(item.Name, item.PhoneNumber, item.Adress);
                 returnValue.Add(temp);
             }
             return returnValue;

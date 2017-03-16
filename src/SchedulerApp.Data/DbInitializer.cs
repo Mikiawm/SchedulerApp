@@ -37,13 +37,13 @@ namespace SchedulerApp.Data
 
             var locations = new Location[]
             {
-            new Location{LocationId=1,Adress="8785 Windfall St. Whitehall, PA 18052",Contact=null},
-            new Location{LocationId=2,Adress="77 Winchester Lane Coachella, CA 92236",Contact=null},
-            new Location{LocationId=3,Adress="1 N. Cactus Ave. Green Bay, WI 54302",Contact=null},
-            new Location{LocationId=4,Adress="665 Clinton Lane Wilkes Barre, PA 18702",Contact=null},
-            new Location{LocationId=5,Adress="711 Old York Drive Richmond, VA 23223",Contact=null},
-            new Location{LocationId=6,Adress="787 Lakeview St. Marion, NC 28752",Contact=null},
-            new Location{LocationId=7,Adress="198 West Manhattan Drive Richmond, VA 23223",Contact=null}
+            new Location{ Adress="8785 Windfall St. Whitehall, PA 18052",Contact=null},
+            new Location { Adress="77 Winchester Lane Coachella, CA 92236",Contact=null},
+            new Location{Adress="1 N. Cactus Ave. Green Bay, WI 54302",Contact=null},
+            new Location{Adress="665 Clinton Lane Wilkes Barre, PA 18702",Contact=null},
+            new Location{Adress="711 Old York Drive Richmond, VA 23223",Contact=null},
+            new Location{Adress="787 Lakeview St. Marion, NC 28752",Contact=null},
+            new Location{Adress="198 West Manhattan Drive Richmond, VA 23223",Contact=null}
             };
             foreach (Location l in locations)
             {

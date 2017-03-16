@@ -16,6 +16,7 @@ namespace SchedulerApp.Data.Infrastructure
         public RepositoryBase(SchedulerContext dbContext)
         {
             this.dbContext = dbContext;
+            this.dbSet = dbContext.Set<T>();
         }
         private DbSet<T> Entities
         {

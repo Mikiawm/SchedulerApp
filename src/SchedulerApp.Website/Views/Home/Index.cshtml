@@ -1,24 +1,15 @@
-﻿@model IEnumerable<SchedulerApp.Website.ViewModels.ContactViewModel>
-@{
-    ViewData["Title"] = "Contact";
+﻿@{
+    Layout = null;
 }
-<h2>@ViewData["Title"].</h2>
-<h3>@ViewData["Message"]</h3>
-<h1>
-    @foreach (var item in Model)
-    {
-        @Html.DisplayFor(modelItem => item.Name);
-        @Html.DisplayFor(modelItem => item.PhoneNumber);
-    }
-</h1>
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
-
-<address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<html>
+<head>
+    <title>Hello React</title>
+</head>
+<body>
+    <div id="content"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.7.1/remarkable.min.js"></script>
+    <script src="@Url.Content("~/js/tutorial.jsx")"></script>
+</body>
+</html>

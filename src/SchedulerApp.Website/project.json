@@ -31,6 +31,8 @@
       "type": "platform"
     },
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
+    "React.AspNet": "3.0.1",
+    "React.Core": "3.0.1",
     "SchedulerApp.Data": "1.0.0-*",
     "SchedulerApp.Domain": "1.0.0-*"
   },

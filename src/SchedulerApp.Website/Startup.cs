@@ -15,6 +15,8 @@ using Autofac.Extensions.DependencyInjection;
 using SchedulerApp.Data.Infrastructure;
 using SchedulerApp.Data.Repositories;
 using SchedulerApp.Domain.Services;
+using React.AspNet;
+using React;
 
 namespace SchedulerApp.Website
 {
@@ -44,7 +46,7 @@ namespace SchedulerApp.Website
             // Add framework services.
             services.AddMvc();
             services.AddApplicationInsightsTelemetry(Configuration);
-
+            services.AddReact();
             var connection = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog = SchedulerApp; Integrated Security=True;Connect Timeout=15;";
 
             services.AddDbContext<SchedulerContext>(options => options.UseSqlServer(connection, b => b.MigrationsAssembly("SchedulerApp.Data")));
@@ -93,9 +95,26 @@ namespace SchedulerApp.Website
             }
 
             app.UseApplicationInsightsExceptionTelemetry();
+            app.UseReact(config =>
+            {
+                // If you want to use server-side rendering of React components,
+                // add all the necessary JavaScript files here. This includes
+                // your components as well as all of their dependencies.
+                // See http://reactjs.net/ for more information. Example:
+                //config.AddScript("~/js/Tutorial.jsx");
 
+                // If you use an external build too (for example, Babel, Webpack,
+                // Browserify or Gulp), you can improve performance by disabling
+                // ReactJS.NET's version of Babel and loading the pre-transpiled
+                // scripts. Example:
+                //config
+                //  .SetLoadBabel(false)
+                //  .AddScriptWithoutTransform("~/Scripts/bundle.server.js");
+            });
             app.UseStaticFiles();
-
+            
+            ReactSiteConfiguration.Configuration = new ReactSiteConfiguration()
+                .AddScript("~/js/Tutorial.jsx");
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

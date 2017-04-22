@@ -23,12 +23,11 @@ namespace SchedulerApp.Website.Controllers
             {
                 throw new ArgumentNullException("contacService");
             }
-            IEnumerable<Contact> contacts;
-            contacts = contactService.GetContacts();
+            var contacts = ContactViewModel.DisplayContacts(contactService.GetContacts());
             ViewData["Message"] = "Your contact page.";
             if (contacts != null)
             {
-                return View(ContactViewModel.DisplayContacts(contacts));
+                return View();
             }
             else
             {
@@ -41,20 +40,22 @@ namespace SchedulerApp.Website.Controllers
             ViewData["Message"] = "Your application description page.";
 
             return View();
-        }   
-
-        public IActionResult Contact()
+        }
+        [Route("contacts")]
+        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        public JsonResult Contacts()
         {
             IEnumerable<Contact> contacts;
             contacts = contactService.GetContacts();
             ViewData["Message"] = "Your contact page.";
+
             if(contacts != null)
             {
-                return View(ContactViewModel.DisplayContacts(contacts));
+                return Json(ContactViewModel.DisplayContacts(contacts).ToArray());
             }
             else
             {
-                return View();
+                return Json("");
             }
         }
 

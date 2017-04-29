@@ -13,8 +13,9 @@ namespace SchedulerApp.Domain.Services
         IEnumerable<Contact> GetContacts(string name = null);
         Contact GetContact(int id);
         Contact GetContact(string name);
-        void CreateContact(Contact contact);
+        bool CreateContact(Contact contact);
         void SaveContact();
+        void CreateContact(string name, string phoneNumber, string adress);
     }
 
     public class ContactServices : IContactService
@@ -29,9 +30,23 @@ namespace SchedulerApp.Domain.Services
         {
 
         }
-        public void CreateContact(Contact contact)
+        public bool CreateContact(Contact contact)
         {
-            _contactRepository.Add(contact);
+            bool contactCreated = true;
+            try
+            {
+                _contactRepository.Add(contact);
+            }
+            catch
+            {
+                contactCreated = false;
+                throw;
+            }
+            finally
+            {
+                Console.WriteLine(contactCreated);
+            }
+            return contactCreated;
         }
 
         public Contact GetContact(string name = null)
@@ -61,5 +76,12 @@ namespace SchedulerApp.Domain.Services
         {
             throw new NotImplementedException();
         }
+
+        public void CreateContact(string name, string phoneNumber, string adress)
+        {
+            Contact saveContact = new Contact(name, phoneNumber, adress);
+            _contactRepository.Add(saveContact);
+        }
     }
 }
+

@@ -16,9 +16,9 @@ namespace SchedulerApp.Data.Repositories
  
         public Contact GetContactByName(string contactName)
         {
-            var category = this.dbContext.Contacts.Where(c => c.Name == contactName).FirstOrDefault();
+            var contact = this.dbContext.Contacts.Where(c => c.Name == contactName).FirstOrDefault();
 
-            return category;
+            return contact;
         }
 
         public override void Update(Contact entity)
@@ -29,6 +29,7 @@ namespace SchedulerApp.Data.Repositories
         public override void Add(Contact entity)
         {
             base.Add(entity);
+            dbContext.SaveChanges();
         }
         public override void Delete(Contact entity)
         {

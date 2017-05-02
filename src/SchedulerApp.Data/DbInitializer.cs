@@ -52,14 +52,14 @@ namespace SchedulerApp.Data
             context.SaveChanges();
             var contacts = new Contact[]
             {
-             new Contact{Name="Carson",DateUpdated = DateTime.Now,Adress="Alexander",PhoneNumber="(283) 843-9772"},
-            new Contact{Name="Meredith",DateUpdated = DateTime.Now,Adress="Alonso",PhoneNumber="(323) 789-1103"},
-            new Contact{Name="Arturo",DateUpdated = DateTime.Now,Adress="Anand",PhoneNumber="(457) 213-9438"},
-            new Contact{Name="Gytis",DateUpdated = DateTime.Now,Adress="Barzdukas",PhoneNumber="(663) 646-4717"},
-            new Contact{Name="Yan",DateUpdated = DateTime.Now,Adress="Li",PhoneNumber="(271) 844-936Update-Database5"},
-            new Contact{Name="Peggy",DateUpdated = DateTime.Now,Adress="Justice",PhoneNumber="(722) 279-7386"},
-            new Contact{Name="Laura",DateUpdated = DateTime.Now,Adress="Norman",PhoneNumber="(914) 976-3869"},
-            new Contact{Name="Nino",DateUpdated = DateTime.Now,Adress="Olivetto",PhoneNumber="(224) 127-0732"}
+             new Contact("Carson","Alexander","(283) 843-9772"),
+            new Contact("Meredith","Alonso","(323) 789-1103"),
+            new Contact("Arturo","Anand","(457) 213-9438"),
+            new Contact("Gytis","Barzdukas","(663) 646-4717"),
+            new Contact("Yan","Li","(271) 844-936Update-Database5"),
+            new Contact("Peggy","Justice","(722) 279-7386"),
+            new Contact("Laura","Norman","(914) 976-3869"),
+            new Contact("Nino","Olivetto","(224) 127-0732")
             };
             foreach (Contact c in contacts)
             {

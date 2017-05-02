@@ -25,6 +25,7 @@ namespace SchedulerApp.Data.Infrastructure
         public virtual void Add(T entity)
         {
             dbSet.Add(entity);
+            dbContext.SaveChanges();
         }
 
         public virtual void Update(T entity)

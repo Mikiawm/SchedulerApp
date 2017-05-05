@@ -27,7 +27,7 @@ namespace SchedulerApp.Website.Controllers
             ViewData["Message"] = "Your contact page.";
             if (contacts != null)
             {
-                return View();
+                return View(contacts);
             }
             else
             {

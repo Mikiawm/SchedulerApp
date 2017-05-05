@@ -153,7 +153,3 @@ var Contact = React.createClass({
     }
 });
 
-ReactDOM.render(
-    <ContactBox url="/contacts" submitUrl="/contact/new" editUrl="/contact/edit" pollInterval={2000} />,
-    document.getElementById('content')
-);

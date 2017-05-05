@@ -95,6 +95,7 @@ namespace SchedulerApp.Website
             }
 
             app.UseApplicationInsightsExceptionTelemetry();
+
             app.UseReact(config =>
             {
                 // If you want to use server-side rendering of React components,
@@ -102,7 +103,9 @@ namespace SchedulerApp.Website
                 // your components as well as all of their dependencies.
                 // See http://reactjs.net/ for more information. Example:
                 //config.AddScript("~/js/Tutorial.jsx");
-
+                config
+                    .AddScript("~/js/remarkable.min.js")
+                    .AddScript("~/js/Tutorial.jsx");
                 // If you use an external build too (for example, Babel, Webpack,
                 // Browserify or Gulp), you can improve performance by disabling
                 // ReactJS.NET's version of Babel and loading the pre-transpiled

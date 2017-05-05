@@ -32,6 +32,7 @@ namespace SchedulerApp.Data.Infrastructure
         {
             dbSet.Attach(entity);
             dbContext.Entry(entity).State = EntityState.Modified;
+            dbContext.SaveChanges();
         }
 
         public virtual void Delete(T entity)

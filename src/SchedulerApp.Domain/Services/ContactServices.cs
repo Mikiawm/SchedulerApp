@@ -16,6 +16,7 @@ namespace SchedulerApp.Domain.Services
         bool CreateContact(Contact contact);
         void SaveContact();
         void CreateContact(string name, string phoneNumber, string adress);
+        void EditContact(Contact contact, string name);
     }
 
     public class ContactServices : IContactService
@@ -81,6 +82,13 @@ namespace SchedulerApp.Domain.Services
         {
             Contact saveContact = new Contact(name, phoneNumber, adress);
             _contactRepository.Add(saveContact);
+        }
+
+        public void EditContact(Contact contact, string name)
+        {
+            var saveContact = contact;
+            contact.Name = name;
+            _contactRepository.Update(contact);
         }
     }
 }

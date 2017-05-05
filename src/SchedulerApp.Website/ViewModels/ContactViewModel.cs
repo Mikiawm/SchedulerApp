@@ -13,8 +13,9 @@ namespace SchedulerApp.Website.ViewModels
         public string PhoneNumber { get; set; }
         public string Adress { get; set; }
 
-        public ContactViewModel(string name, string phoneNumber, string adress)
+        public ContactViewModel(int id, string name, string phoneNumber, string adress)
         {
+            ContactId = id;
             Name = name;
             PhoneNumber = phoneNumber;
             Adress = adress;
@@ -25,7 +26,7 @@ namespace SchedulerApp.Website.ViewModels
             List<ContactViewModel> returnValue = new List<ContactViewModel>();
             foreach (var item in contacts)
             {
-                ContactViewModel temp = new ContactViewModel(item.Name, item.PhoneNumber, item.Adress);
+                ContactViewModel temp = new ContactViewModel(item.ContactId, item.Name, item.PhoneNumber, item.Adress);
                 returnValue.Add(temp);
             }
             return returnValue;

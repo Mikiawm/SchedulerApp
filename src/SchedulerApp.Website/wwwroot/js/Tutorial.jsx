@@ -1,8 +1,8 @@
-﻿var CommentBox = React.createClass({
+﻿var ContactBox = React.createClass({
     getInitialState: function () {
         return { data: [] };
     },
-    loadCommentsFromServer: function () {
+    loadContactsFromServer: function () {
         var xhr = new XMLHttpRequest();
         xhr.open('get', this.props.url, true);
         console.log(this.props.url);
@@ -13,14 +13,14 @@
         xhr.send();
     },
     componentDidMount: function () {
-        this.loadCommentsFromServer();
-        window.setInterval(this.loadCommentsFromServer, this.props.pollInterval);
+        this.loadContactsFromServer();
+        window.setInterval(this.loadContactsFromServer, this.props.pollInterval);
     },
-    handleCommentSubmit: function (comment) {
+    handleContactAddSubmit: function (contact) {
         var data = new FormData();
-        data.append('name', comment.name);
-        data.append('phoneNumber', comment.phoneNumber);
-        data.append('adress', comment.adress);
+        data.append('name', contact.name);
+        data.append('phoneNumber', contact.phoneNumber);
+        data.append('adress', contact.adress);
         for (var pair of data.entries()) {
             console.log(pair[0] + ', ' + pair[1]);
         }
@@ -28,38 +28,36 @@
         var xhr = new XMLHttpRequest();
         xhr.open('Post', this.props.submitUrl, true);
         xhr.onload = function () {
-            this.loadCommentsFromServer();
+            this.loadContactsFromServer();
+        }.bind(this);
+        xhr.send(data);
+    },
+    handleContactEditSubmit: function (contact) {
+        var data = new FormData();
+        data.append('id', contact.id);
+        data.append('name', contact.name);
+
+        console.log(this.props.submitUrl);
+        var xhr = new XMLHttpRequest();
+        xhr.open('Post', this.props.editUrl, true);
+        xhr.onload = function () {
+            this.loadContactsFromServer();
         }.bind(this);
         xhr.send(data);
     },
     render: function () {
         return (
-            <div className="commentBox">
-                <h1>Comments</h1>
-                <CommentList data={this.state.data} />
-                <CommentForm onCommentSubmit={this.handleCommentSubmit} />
-            </div>
-        );
-    }
-});
-var CommentList = React.createClass({
-    render: function () {
-        var commentNodes = this.props.data.map(function (comment) {
-            return (
-                <Comment author={comment.name} key={comment.adress}>
-                    {comment.phoneNumber}
-                </Comment>
-            );
-        });
-        return (
-            <div className="commentList">
-                {commentNodes}
+            <div className="contactBox">
+                <h1>Contacts</h1>
+                <ContactList data={this.state.data} handleContactSubmit={this.handleContactEditSubmit} />
+                <ContactForm onContactSubmit={this.handleContactAddSubmit} />
             </div>
         );
     }
 });
 
-var CommentForm = React.createClass({
+
+var ContactForm = React.createClass({
     getInitialState: function () {
         return { name: '', adress: '', phoneNumber: '' };
     },
@@ -80,57 +78,82 @@ var CommentForm = React.createClass({
         if (!name || !adress || !phoneNumber) {
             return;
         }
-        this.props.onCommentSubmit({ name: name, adress: adress, phoneNumber: phoneNumber });
+        this.props.onContactSubmit({ name: name, adress: adress, phoneNumber: phoneNumber });
         this.setState({ name: '', adress: '', phoneNumber: '' });
     },
     render: function () {
         return (
-            <form className="commentForm" onSubmit={this.handleSubmit}>
-                <input
-                    type="text"
-                    placeholder="Your name"
-                    value={this.state.name}
-                    onChange={this.handleNameChange}
-                />
-                <input
-                    type="text"
-                    placeholder="Adress"
-                    value={this.state.adress}
-                    onChange={this.handleAdressChange}
-                />
-                <input
-                    type="text"
-                    placeholder="PhoneNumber"
-                    value={this.state.phoneNumber}
-                    onChange={this.handlePhoneNumberChange}
-                />
+            <form className="contactForm" onSubmit={this.handleSubmit}>
+                <input type="text"
+                       placeholder="Your name"
+                       value={this.state.name}
+                       onChange={this.handleNameChange} />
+                <input type="text"
+                       placeholder="Adress"
+                       value={this.state.adress}
+                       onChange={this.handleAdressChange} />
+                <input type="text"
+                       placeholder="PhoneNumber"
+                       value={this.state.phoneNumber}
+                       onChange={this.handlePhoneNumberChange} />
+                <input type="submit" value="Post" />
+            </form>
+        );
+    }
+});
+var ContactList = React.createClass({
+    render: function () {
+        var handle = this.props.handleContactSubmit;
+        var contactNodes = this.props.data.map(function (contact) {
+            return (
+                <Contact onContactSubmit={handle} name={contact.name} id={contact.contactId} >
+                    {contact.phoneNumber}
+                </Contact>
+            );
+        });
+        return (
+    <div className="contactList" handleContactSubmit={this.handleContactEditSubmit}>
+        {contactNodes}
+    </div>
+        );
+    }
+});
+var Contact = React.createClass({
+    getInitialState: function () {
+        return { name: '', id: this.props.id };
+    },
+    handleNameChange: function (e) {
+        this.setState({ name: e.target.value });
+    },
+    rawMarkup: function () {
+        var md = new Remarkable();
+        var rawMarkup = md.render(this.props.children.toString());
+        return { __html: rawMarkup };
+    },
+    handleSubmit: function (e) {
+        e.preventDefault();
+        var name = this.state.name.trim();
+        var id = this.state.id;
+        if (name == '') return;
+        this.props.onContactSubmit({ name: name, id: id });
+        this.setState({ name: '' });
+    },
+    render: function () {
+        var md = new Remarkable();
+        return (
+            <form className="contact" onSubmit={this.handleSubmit}>
+                <input type="text"
+                       placeholder="Your name"
+                       defaultValue={this.props.name}
+                       onChange={this.handleNameChange} />
+                <span dangerouslySetInnerHTML={this.rawMarkup()} />
                 <input type="submit" value="Post" />
             </form>
         );
     }
 });
 
-var Comment = React.createClass({
-    rawMarkup: function () {
-        var md = new Remarkable();
-        var rawMarkup = md.render(this.props.children.toString());
-        return { __html: rawMarkup };
-    },
-    render: function () {
-        var md = new Remarkable();
-        return (
-            <div className="comment">
-                <h2 className="commentAuthor">
-                    {this.props.author}
-                </h2>
-                <span dangerouslySetInnerHTML={this.rawMarkup()} />
-            </div>
-        );
-    }
-});
-
 ReactDOM.render(
-    <CommentBox url="/contacts" submitUrl="/contact/new" editUrl="/contact/edit" pollInterval={2000} />,
-    //React.createElement(CommentBox, null),
+    <ContactBox url="/contacts" submitUrl="/contact/new" editUrl="/contact/edit" pollInterval={2000} />,
     document.getElementById('content')
 );

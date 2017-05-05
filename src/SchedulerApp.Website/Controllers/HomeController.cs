@@ -74,8 +74,10 @@ namespace SchedulerApp.Website.Controllers
         //}
         [Route("contact/edit")]
         [HttpPost]
-        public ActionResult EditContact()
+        public ActionResult EditContact(int id, string name)
         {
+            var contact = contactService.GetContact(id);
+            contactService.EditContact(contact, name);
             return Content("Hello");
         }
 

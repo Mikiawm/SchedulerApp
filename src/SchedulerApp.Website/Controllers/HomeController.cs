@@ -41,46 +41,6 @@ namespace SchedulerApp.Website.Controllers
 
             return View();
         }
-        [Route("contacts")]
-        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
-        public JsonResult Contacts()
-        {
-            IEnumerable<Contact> contacts;
-            contacts = contactService.GetContacts();
-            ViewData["Message"] = "Your contact page.";
-
-            if (contacts != null)
-            {
-                return Json(ContactViewModel.DisplayContacts(contacts).ToArray());
-            }
-            else
-            {
-                return Json("");
-            }
-        }
-        [Route("contact/new")]
-        [HttpPost]
-        public ActionResult AddContact(string name, string phoneNumber, string adress)
-        {
-            contactService.CreateContact(name, phoneNumber, adress);
-            return Content("Success :)");
-        }
-        //[Route("contact/new")]
-        //[HttpPost]
-        //public ActionResult AddContact(ContactViewModel contact)
-        //{
-        //    contactService.CreateContact(ContactViewModel.CreateContactFromView(contact));
-        //    return Content("Success :)");
-        //}
-        [Route("contact/edit")]
-        [HttpPost]
-        public ActionResult EditContact(int id, string name)
-        {
-            var contact = contactService.GetContact(id);
-            contactService.EditContact(contact, name);
-            return Content("Hello");
-        }
-
 
         public IActionResult Error()
         {

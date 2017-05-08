@@ -47,7 +47,7 @@
     },
     render: function () {
         return (
-            <div className="contactBox">
+            <div className="contactBox container">
                 <h1>Contacts</h1>
                 <ContactList data={this.state.data} handleContactSubmit={this.handleContactEditSubmit} />
                 <ContactForm onContactSubmit={this.handleContactAddSubmit} />
@@ -112,7 +112,7 @@ var ContactList = React.createClass({
             );
         });
         return (
-    <div className="contactList" handleContactSubmit={this.handleContactEditSubmit}>
+    <div className="contactList col-sm-6 col-md-4 col-lg-3 mt-4" handleContactSubmit={this.handleContactEditSubmit} >
         {contactNodes}
     </div>
         );
@@ -141,7 +141,7 @@ var Contact = React.createClass({
     render: function () {
         var md = new Remarkable();
         return (
-            <form className="contact" onSubmit={this.handleSubmit}>
+            <form className="contact contact-block" onSubmit={this.handleSubmit}>
                 <input type="text"
                        placeholder="Your name"
                        defaultValue={this.props.name}

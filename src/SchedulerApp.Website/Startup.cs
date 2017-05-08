@@ -105,7 +105,8 @@ namespace SchedulerApp.Website
                 //config.AddScript("~/js/Tutorial.jsx");
                 config
                     .AddScript("~/js/remarkable.min.js")
-                    .AddScript("~/js/Tutorial.jsx");
+                    .AddScript("~/js/Tutorial.jsx")
+                    .AddScript("~/js/navBar.jsx");
                 // If you use an external build too (for example, Babel, Webpack,
                 // Browserify or Gulp), you can improve performance by disabling
                 // ReactJS.NET's version of Babel and loading the pre-transpiled

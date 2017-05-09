@@ -9,13 +9,17 @@
 </head>
 <body>
     @Html.Partial("_NavBar")
+    @Html.React("Calendar", new
+  {
+      url = Url.Action("Calendar/json")
+  })
     <div id="calendar"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.7.1/remarkable.min.js"></script>
     <link rel="stylesheet" type="text/css" href="~/css/site.css">
     <link rel="stylesheet" type="text/css" href="\lib\bootstrap\dist\css\bootstrap.css">
-    <script src="@Url.Content("~/js/calendar.jsx")"></script>
+    @*<script src="@Url.Content("~/js/calendar.jsx")"></script>*@
     @Html.ReactInitJavaScript()
 </body>
 </html>

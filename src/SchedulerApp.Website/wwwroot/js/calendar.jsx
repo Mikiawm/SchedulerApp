@@ -2,7 +2,7 @@
     calc: function (year, month) {},
     componentWillMount: function () {},
     componentDidMount: function () {},
-    componentDidUpdate: function (prevProps, prevState) {},
+    componentDidUpdate: function (prevProps, prevState) { },
     getInitialState: function () {
         var date = new Date();
         return {
@@ -40,7 +40,7 @@
 });
 
 var Header = React.createClass({
-    render: function () {return null}
+    render: function () {return (<div>{this.props.monthNames[this.props.month]}</div>)}
 });
 
 var WeekDays = React.createClass({
@@ -54,15 +54,7 @@ var MonthDates = React.createClass({
         date: new Date().getDate(),
         today: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())
     },
-    render: function () {return null}
+    render: function () {return (
+        <div></div>
+        )}
 });
-
-ReactDOM.render(
-    React.createElement(Calendar, {        
-        onSelect: function (state) {
-        console.log(this, state);
-        },
-        disablePast: true,
-        minDate: new Date(2016, 2, 28)}),
-    document.getElementById("calendar")
-);

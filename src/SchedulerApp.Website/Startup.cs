@@ -106,7 +106,8 @@ namespace SchedulerApp.Website
                 config
                     .AddScript("~/js/remarkable.min.js")
                     .AddScript("~/js/Tutorial.jsx")
-                    .AddScript("~/js/navBar.jsx");
+                    .AddScript("~/js/navBar.jsx")
+                    .AddScript("~/js/calendar.jsx");
                 // If you use an external build too (for example, Babel, Webpack,
                 // Browserify or Gulp), you can improve performance by disabling
                 // ReactJS.NET's version of Babel and loading the pre-transpiled
@@ -118,7 +119,8 @@ namespace SchedulerApp.Website
             app.UseStaticFiles();
             
             ReactSiteConfiguration.Configuration = new ReactSiteConfiguration()
-                .AddScript("~/js/Tutorial.jsx");
+                .AddScript("~/js/Tutorial.jsx")
+                .AddScript("~/js/calendar.jsx");
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

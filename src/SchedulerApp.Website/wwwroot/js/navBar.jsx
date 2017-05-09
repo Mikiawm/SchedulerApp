@@ -25,7 +25,7 @@ var NavBar = React.createClass({
 var NavBrand = React.createClass({
     render: function(){
         return (
-          <a className="navbar-brand" href={this.props.linkTo}>{this.props.text}</a>
+          <a className="navbar-brand" asp-action="index" asp-controller={this.props.linkTo}>{this.props.text}</a>
     ); 
 }
 });
@@ -88,10 +88,10 @@ var NavLink = React.createClass({
 // set data
 var navbar = {};
 navbar.brand = 
-  { linkTo: "contact/index", text: "React Bootstrap Navbar" };
+  { linkTo: "#", text: "React Bootstrap Navbar" };
 navbar.links = [
-  {linkTo: "#", text: "Link 1"},
-  {linkTo: "#", text: "Link 2"},
+  { linkTo: "Contact", text: "Link 1" },
+  {linkTo: "Calendar", text: "Link 2"},
   {dropdown: true, text: "Dropdown", links: [
     {linkTo: "#", text: "Dropdown Link 1"},
     {linkTo: "#", text: "Dropdown Link 2", active: true}

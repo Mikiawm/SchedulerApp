@@ -23,8 +23,8 @@ namespace SchedulerApp.Website.Controllers
             this.contactService = contactService;
         }
         // GET: /<controller>/
-        [Route("contact/index")]
-        [ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
+        //[Route("contact/index")]
+        //[ResponseCache(Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Index()
         {
             return View();

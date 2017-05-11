@@ -26,7 +26,14 @@ namespace SchedulerApp.Website.Controllers
 
             return Json(returnDic);
         }
+        [Route("Calendar/SaveEvent")]
+        [HttpPost]
+        public IActionResult SaveEvent(string[] eventDates)
+        {
+            Console.WriteLine(eventDates);
 
+            return View();
+        }
         [Route("Calendar/json2")]
         public IActionResult Calendar2()
         {

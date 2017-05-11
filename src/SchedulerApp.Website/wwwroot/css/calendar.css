@@ -27,29 +27,11 @@
     border-color: #e66b6b;
 }
 
-.clickedDay {
+.day.clickedDay {
     background-color: yellow;
-    display: inline-block;
-    width: 100px;
-    padding: 3.5em 9em;
-    text-align: center;
-    color: #e66b6b;
-    font-weight: 700;
-    text-transform: uppercase;
-    border-style: solid;
-    border-color: #e66b6b;
 }
-.editDay {
-        background-color: rebeccapurple;
-    display: inline-block;
-    width: 100px;
-    padding: 3.5em 9em;
-    text-align: center;
-    color: #e66b6b;
-    font-weight: 700;
-    text-transform: uppercase;
-    border-style: solid;
-    border-color: #e66b6b;
+.day.editDay {
+    background-color: rebeccapurple;
 }
 .emptyDayField {
     display: inline-block;

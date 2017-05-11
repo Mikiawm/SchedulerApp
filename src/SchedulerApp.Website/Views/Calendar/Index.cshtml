@@ -11,7 +11,8 @@
     @Html.Partial("_NavBar")
     @Html.React("Calendar", new
   {
-      url = Url.Action("Calendar/json")
+      url = Url.Action("Calendar/json"),
+      submitUrl = Url.Action("SaveEvent")
   })
     <div id="calendar"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react.js"></script>

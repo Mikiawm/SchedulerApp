@@ -18,7 +18,7 @@ namespace SchedulerApp.Data
 
         public DbSet<Contact> Contacts { get; set; }
 
-        public DbSet<Event> Events { get; set; }
+        public DbSet<Happening> Happenings { get; set; }
         public DbSet<Location> Locations { get; set; }
 
         public SchedulerContext()
@@ -33,7 +33,7 @@ namespace SchedulerApp.Data
         {
             modelBuilder.Entity<Employee>().ToTable("Employee");
             modelBuilder.Entity<Contact>().ToTable("Contact");
-            modelBuilder.Entity<Event>().ToTable("Event");
+            modelBuilder.Entity<Happening>().ToTable("Happening");
             modelBuilder.Entity<Location>().ToTable("Location");
         }
     }

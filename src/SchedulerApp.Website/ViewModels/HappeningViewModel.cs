@@ -8,15 +8,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SchedulerApp.Website.ViewModels
 {
-    public class EventViewModel
+    public class HappeningViewModel
     {
-        public int EventId { get; set; }
+        public int? EventId { get; set; }
         public string Name { get; set; }
         public DateTime DateFrom { get; set; }
         public DateTime DateTo { get; set; }
 
 
-        public EventViewModel()
+        public HappeningViewModel()
         {
             EventId = 0;
             Name = "BasicConstructor";
@@ -24,12 +24,19 @@ namespace SchedulerApp.Website.ViewModels
             DateTo = DateTime.Today.AddDays(1);
         }
 
-        public EventViewModel(int id, string name, DateTime dateFrom, DateTime dateTo)
+        public HappeningViewModel(int id, string name, DateTime dateFrom, DateTime dateTo)
         {
             EventId = id;
             Name = name;
             DateFrom = dateFrom;
             DateTo = dateTo;
+        }
+
+        public HappeningViewModel(DateTime dateFrom, DateTime dateTo)
+        {
+            Name = "Custom";
+            this.DateFrom = dateFrom;
+            this.DateTo = dateTo;
         }
     }
 }

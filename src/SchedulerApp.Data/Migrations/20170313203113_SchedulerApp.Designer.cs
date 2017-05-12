@@ -46,7 +46,7 @@ namespace SchedulerApp.Data.Migrations
 
                     b.Property<string>("Adress");
 
-                    b.Property<int?>("EventId");
+                    b.Property<int?>("HappeningId");
 
                     b.Property<string>("Name");
 
@@ -54,14 +54,14 @@ namespace SchedulerApp.Data.Migrations
 
                     b.HasKey("EmployeeId");
 
-                    b.HasIndex("EventId");
+                    b.HasIndex("HappeningId");
 
                     b.ToTable("Employee");
                 });
 
-            modelBuilder.Entity("SchedulerApp.Data.Configuration.Event", b =>
+            modelBuilder.Entity("SchedulerApp.Data.Configuration.Happening", b =>
                 {
-                    b.Property<int>("EventId")
+                    b.Property<int>("HappeningId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int?>("ContactId");
@@ -74,13 +74,13 @@ namespace SchedulerApp.Data.Migrations
 
                     b.Property<string>("Name");
 
-                    b.HasKey("EventId");
+                    b.HasKey("HappeningId");
 
                     b.HasIndex("ContactId");
 
                     b.HasIndex("LocationId");
 
-                    b.ToTable("Event");
+                    b.ToTable("Happening");
                 });
 
             modelBuilder.Entity("SchedulerApp.Data.Configuration.Location", b =>
@@ -104,12 +104,12 @@ namespace SchedulerApp.Data.Migrations
 
             modelBuilder.Entity("SchedulerApp.Data.Configuration.Employee", b =>
                 {
-                    b.HasOne("SchedulerApp.Data.Configuration.Event")
+                    b.HasOne("SchedulerApp.Data.Configuration.Happening")
                         .WithMany("Employees")
-                        .HasForeignKey("EventId");
+                        .HasForeignKey("HappeningId");
                 });
 
-            modelBuilder.Entity("SchedulerApp.Data.Configuration.Event", b =>
+            modelBuilder.Entity("SchedulerApp.Data.Configuration.Happening", b =>
                 {
                     b.HasOne("SchedulerApp.Data.Configuration.Contact", "Contact")
                         .WithMany()

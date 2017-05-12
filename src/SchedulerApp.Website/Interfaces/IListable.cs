@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SchedulerApp.Domain.Services
+namespace SchedulerApp.Website.Interfaces
 {
-    public class EventServices
+    interface IListable
     {
     }
 }

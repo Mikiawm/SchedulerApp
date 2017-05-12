@@ -63,6 +63,7 @@ namespace SchedulerApp.Website
             // to dispose of the container at the end of the app,
             // be sure to keep a reference to it as a property or field.
             builder.RegisterType<ContactServices>().As<IContactService>().InstancePerLifetimeScope();
+            builder.RegisterType<HappeningServices>().As<IHappeningService>().InstancePerLifetimeScope();
             builder.RegisterGeneric(typeof(RepositoryBase<>)).As(typeof(IRepository<>));
             
 

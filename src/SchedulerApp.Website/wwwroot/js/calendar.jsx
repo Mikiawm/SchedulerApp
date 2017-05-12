@@ -3,18 +3,21 @@
     componentWillMount: function () { },
     componentDidMount: function () { },
     componentDidUpdate: function (prevProps, prevState) { },
-    handleAddEventSubmit: function (event) {
+    handleAddEventSubmit: function (happening) {
         var data = new FormData();
-        for (var x in event) {
-            console.log(x);
+        var happeningDays = happening.map(function (a) { return a.dayDate.toString(); });
+        console.log(happening);
+        data.append('happeningDays', happeningDays);
+        for (var pair of data.entries()) {
+            console.log(pair[0] + ', ' + pair[1]);
         }
-        var eventData = JSON.stringify({ 'eventDates': event });
+        console.log(data);
         var xhr = new XMLHttpRequest();
         xhr.open('Post', this.props.submitUrl, true);
         //xhr.onload = function () {
         //    this.loadContactsFromServer();
         //}.bind(this);
-        xhr.send(eventData);
+        xhr.send(data);
     },
     getInitialState: function () {
         var date = new Date();
@@ -35,8 +38,12 @@
             monthNamesFull: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
             firstOfMonth: null,
             daysInMonth: daysInMonths[date.getMonth()],
-            fieldsToDisplay: 42
+            fieldsToDisplay: 42,
+            savingMode: false
         };
+    },
+    changeToSavingMode: function () {
+        this.state.savingMode = !this.state.savingMode;
     },
     getPrev: function () { },
     getNext: function () { },
@@ -49,6 +56,7 @@
                 <DaysHeader dayNames={this.state.dayNames} startDay={this.state.startDay} weekNumbers={this.state.weekNumbers} />
                 <WeekDays month={this.state.month} year={this.state.year} dayNames={this.state.dayNames} startDay={this.state.startDay} weekNumbers={this.state.weekNumbers} daysInMonth={this.state.daysInMonth} fieldsToDisplay={this.state.fieldsToDisplay} handleAddEventSubmit={this.handleAddEventSubmit} />
                 <MonthDates month={this.state.month} year={this.state.year} daysInMonth={this.state.daysInMonth} firstOfMonth={this.state.firstOfMonth} startDay={this.state.startDay} onSelect={this.selectDate} weekNumbers={this.state.weekNumbers} disablePast={this.state.disablePast} minDate={this.state.minDate} />
+                <EventBuble savingMode={this.state.saving}></EventBuble>
             </div>
         </div>
     );
@@ -78,7 +86,12 @@ var DaysHeader = React.createClass({
         )
     }
 });
+
 var Day = React.createClass({
+    dateChanger: function (value) {
+        if (value < 10) { value = '0' + value; }
+        return value;
+    },
     getInitialState: function () {
         return {
             isClicked: false,
@@ -87,7 +100,7 @@ var Day = React.createClass({
             className: "",
             mouseStillDown: false,
             dayDate: new Date(this.props.year, this.props.month, this.props.dayName).getDay(),
-            dayDateFull: new Date(this.props.year, this.props.month, this.props.dayName)
+            dayDateFull: this.props.year + "-" + this.dateChanger(this.props.month) + "-" + this.dateChanger(this.props.dayName)
         };
     },
     onClickHandler: function () {
@@ -147,7 +160,20 @@ var Day = React.createClass({
     }
 });
 var EventBuble = React.createClass({
-    render: function () { return (null); }
+    getInitialState: function () {
+        return {
+            isVisible: false,
+            className: ""
+        };
+    },
+    setVisibleState: function () {
+        this.state.isVisible = !this.state.isVisible;
+    },
+    render: function () {
+        return (<div className={this.state.className}> </div>
+
+        );
+    }
 })
 var WeekDays = React.createClass({
     getInitialState: function () {
@@ -161,7 +187,7 @@ var WeekDays = React.createClass({
         console.log(day);
         days = this.state.days.push(day);
     },
-    sendEventToSave: function(){
+    sendEventToSave: function () {
         this.props.handleAddEventSubmit(this.state.days);
     },
     onMouseDownHandler: function () {
@@ -187,7 +213,7 @@ var WeekDays = React.createClass({
        <div className="calendarDays" onMouseDown={this.onMouseDownHandler} onMouseUp={this.onMouseUpHandler}>
            {daysCount.map(function (dayNumber) {
                if (dayNumber > startDay && dayNumber <= startDay + daysInMonth) {
-                   return (<Day dayName={dayNumber - startDay} month={month} year={year} mouseStillDown={mouseStillDown} addDayToEvent={addDayToEvent}></Day>)
+                   return (<Day dayName={dayNumber - startDay} month={month} year={year} mouseStillDown={mouseStillDown} addDayToEvent={addDayToEvent }></Day>)
                }
                else {
                    return (<EmptyDay></EmptyDay>)

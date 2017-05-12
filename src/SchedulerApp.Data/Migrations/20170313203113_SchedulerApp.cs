@@ -46,10 +46,10 @@ namespace SchedulerApp.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Event",
+                name: "Happening",
                 columns: table => new
                 {
-                    EventId = table.Column<int>(nullable: false)
+                    HappeningId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ContactId = table.Column<int>(nullable: true),
                     DateCreated = table.Column<DateTime>(nullable: true),
@@ -59,15 +59,15 @@ namespace SchedulerApp.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Event", x => x.EventId);
+                    table.PrimaryKey("PK_Happening", x => x.HappeningId);
                     table.ForeignKey(
-                        name: "FK_Event_Contact_ContactId",
+                        name: "FK_Happening_Contact_ContactId",
                         column: x => x.ContactId,
                         principalTable: "Contact",
                         principalColumn: "ContactId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Event_Location_LocationId",
+                        name: "FK_Happening_Location_LocationId",
                         column: x => x.LocationId,
                         principalTable: "Location",
                         principalColumn: "LocationId",
@@ -81,7 +81,7 @@ namespace SchedulerApp.Data.Migrations
                     EmployeeId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Adress = table.Column<string>(nullable: true),
-                    EventId = table.Column<int>(nullable: true),
+                    HappeningId = table.Column<int>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true)
                 },
@@ -89,10 +89,10 @@ namespace SchedulerApp.Data.Migrations
                 {
                     table.PrimaryKey("PK_Employee", x => x.EmployeeId);
                     table.ForeignKey(
-                        name: "FK_Employee_Event_EventId",
-                        column: x => x.EventId,
-                        principalTable: "Event",
-                        principalColumn: "EventId",
+                        name: "FK_Employee_Happening_HappeningId",
+                        column: x => x.HappeningId,
+                        principalTable: "Happening",
+                        principalColumn: "HappeningId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -102,18 +102,18 @@ namespace SchedulerApp.Data.Migrations
                 column: "LocationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employee_EventId",
+                name: "IX_Employee_HappeningId",
                 table: "Employee",
-                column: "EventId");
+                column: "HappeningId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Event_ContactId",
-                table: "Event",
+                name: "IX_Happening_ContactId",
+                table: "Happening",
                 column: "ContactId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Event_LocationId",
-                table: "Event",
+                name: "IX_Happening_LocationId",
+                table: "Happening",
                 column: "LocationId");
         }
 
@@ -123,7 +123,7 @@ namespace SchedulerApp.Data.Migrations
                 name: "Employee");
 
             migrationBuilder.DropTable(
-                name: "Event");
+                name: "Happening");
 
             migrationBuilder.DropTable(
                 name: "Contact");

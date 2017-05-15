@@ -1,4 +1,5 @@
 ﻿using SchedulerApp.Data.Configuration;
+using SchedulerApp.Data.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,18 +12,36 @@ namespace SchedulerApp.Domain.Services
         IEnumerable<Happening> GetHappenings(string name = null);
         Happening GetHappening(int id);
         Happening GetHappening(string name);
-        bool CreateHappening(Happening contact);
+        bool CreateHappening(Happening happening);
         void SaveHappening();
-        void CreateHappening(string name, string phoneNumber, string adress);
-        void CreateHappening(DateTime dateFrom, DateTime dateTo, string name);
+        void CreateHappening(string name, DateTime dateFrom, DateTime dateTo);
         void CreateHappening(DateTime dateFrom, DateTime dateTo);
         void EditHappening(Happening contact, string name);
     }
     public class HappeningServices : IHappeningService
     {
-        public bool CreateHappening(Happening contact)
+        private readonly IRepository<Happening> _happeningRepository;
+        public HappeningServices(IRepository<Happening> happeningRepository)
         {
-            throw new NotImplementedException();
+            _happeningRepository = happeningRepository;
+        }
+        public HappeningServices()
+        {
+
+        }
+        public bool CreateHappening(Happening happening)
+        {
+            bool happeningCreated = true;
+            try
+            {
+                _happeningRepository.Add(happening);
+            }
+            catch
+            {
+                happeningCreated = false;
+                throw;
+            }
+            return happeningCreated;
         }
 
         public void CreateHappening(DateTime dateFrom, DateTime dateTo)
@@ -30,34 +49,34 @@ namespace SchedulerApp.Domain.Services
             throw new NotImplementedException();
         }
 
-        public void CreateHappening(DateTime dateFrom, DateTime dateTo, string name)
+        public void CreateHappening(string name, DateTime dateFrom, DateTime dateTo)
         {
             throw new NotImplementedException();
         }
 
-        public void CreateHappening(string name, string phoneNumber, string adress)
+        public void EditHappening(Happening happening, string name)
         {
-            throw new NotImplementedException();
-        }
-
-        public void EditHappening(Happening contact, string name)
-        {
-            throw new NotImplementedException();
+            var newHappening = happening;
+            newHappening.DateCreated = DateTime.Now;
+            _happeningRepository.Update(newHappening);
         }
 
         public Happening GetHappening(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Happening> GetHappening(string name = null)
-        {
-            throw new NotImplementedException();
+            var happening = _happeningRepository.GetById(id);
+            return happening;
         }
 
         public IEnumerable<Happening> GetHappenings(string name = null)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(name))
+            {
+                return _happeningRepository.GetAll();
+            }
+            else
+            {
+                return _happeningRepository.GetAll().Where(c => c.Name == name);
+            }
         }
 
         public void SaveHappening()

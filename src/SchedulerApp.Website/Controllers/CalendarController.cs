@@ -23,14 +23,13 @@ namespace SchedulerApp.Website.Controllers
         {
             return View();
         }
-        [Route("Calendar/json")]
+        [Route("Calendar/GetEvents")]
         public IActionResult Calendar()
         {
-            Dictionary<string, string> returnDic = new Dictionary<string, string>();
-            returnDic.Add("TodayDay", DateTime.Now.Day.ToString());
-            returnDic.Add("TodayMonth", DateTime.Now.Month.ToString());
-            returnDic.Add("TodayYear", DateTime.Now.Year.ToString());  
-            return Json(returnDic);
+            var happenings = happeningService.GetHappenings();
+            List<HappeningViewModel> happeningsViewModel = HappeningViewModel.DisplayHappenings(happenings);
+            string x = Json(happeningsViewModel).ToString();
+            return Json(happeningsViewModel);
         }
 
         [Route("Calendar/SaveEvent")]

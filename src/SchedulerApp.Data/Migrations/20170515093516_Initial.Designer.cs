@@ -8,8 +8,8 @@ using SchedulerApp.Data;
 namespace SchedulerApp.Data.Migrations
 {
     [DbContext(typeof(SchedulerContext))]
-    [Migration("20170313203113_SchedulerApp")]
-    partial class SchedulerApp
+    [Migration("20170515093516_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -68,7 +68,13 @@ namespace SchedulerApp.Data.Migrations
 
                     b.Property<DateTime?>("DateCreated");
 
+                    b.Property<DateTime>("DateFrom");
+
+                    b.Property<DateTime>("DateTo");
+
                     b.Property<DateTime?>("DateUpdated");
+
+                    b.Property<string>("DisplayColor");
 
                     b.Property<int?>("LocationId");
 

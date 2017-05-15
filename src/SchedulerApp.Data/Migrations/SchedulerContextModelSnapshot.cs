@@ -67,7 +67,13 @@ namespace SchedulerApp.Data.Migrations
 
                     b.Property<DateTime?>("DateCreated");
 
+                    b.Property<DateTime>("DateFrom");
+
+                    b.Property<DateTime>("DateTo");
+
                     b.Property<DateTime?>("DateUpdated");
+
+                    b.Property<string>("DisplayColor");
 
                     b.Property<int?>("LocationId");
 

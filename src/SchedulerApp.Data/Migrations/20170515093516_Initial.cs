@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace SchedulerApp.Data.Migrations
 {
-    public partial class SchedulerApp : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -53,7 +53,10 @@ namespace SchedulerApp.Data.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ContactId = table.Column<int>(nullable: true),
                     DateCreated = table.Column<DateTime>(nullable: true),
+                    DateFrom = table.Column<DateTime>(nullable: false),
+                    DateTo = table.Column<DateTime>(nullable: false),
                     DateUpdated = table.Column<DateTime>(nullable: true),
+                    DisplayColor = table.Column<string>(nullable: true),
                     LocationId = table.Column<int>(nullable: true),
                     Name = table.Column<string>(nullable: true)
                 },

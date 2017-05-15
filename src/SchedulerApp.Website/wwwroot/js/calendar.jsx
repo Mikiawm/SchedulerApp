@@ -1,8 +1,22 @@
 ﻿var Calendar = React.createClass({
     calc: function (year, month) { },
     componentWillMount: function () { },
-    componentDidMount: function () { },
+    componentDidMount: function () {
+        this.loadEventsFromServer();
+        window.setInterval(this.loadEventsFromServer, this.props.pollInterval);
+    },
     componentDidUpdate: function (prevProps, prevState) { },
+    loadEventsFromServer: function () {
+        var xhr = new XMLHttpRequest();
+        xhr.open('get', this.props.url, true);
+        console.log(this.props.url);
+        xhr.onload = function () {
+            var data = JSON.parse(xhr.responseText);
+            console.log(data);
+            this.setState({ events: data });
+        }.bind(this);
+        xhr.send();
+    },
     handleAddEventSubmit: function (happening) {
         var data = new FormData();
         var happeningDays = happening.map(function (a) { return a.dayDate.toString(); });
@@ -23,6 +37,7 @@
         var date = new Date();
         var daysInMonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         return {
+            events: null,
             year: date.getFullYear(),
             month: date.getMonth() + 1,
             selectedYear: date.getFullYear(),
@@ -52,11 +67,13 @@
         return (
         <div className="r-calendar">
             <div className="r-inner">
-                <Header monthNames={this.state.monthNamesFull} month={this.state.month} year={this.state.year} onPrev={this.getPrev} onNext={this.getNext} />
+                <CalendarHeader monthNames={this.state.monthNamesFull} month={this.state.month} year={this.state.year} onPrev={this.getPrev} onNext={this.getNext} />
                 <DaysHeader dayNames={this.state.dayNames} startDay={this.state.startDay} weekNumbers={this.state.weekNumbers} />
-                <WeekDays month={this.state.month} year={this.state.year} dayNames={this.state.dayNames} startDay={this.state.startDay} weekNumbers={this.state.weekNumbers} daysInMonth={this.state.daysInMonth} fieldsToDisplay={this.state.fieldsToDisplay} handleAddEventSubmit={this.handleAddEventSubmit} />
-                <MonthDates month={this.state.month} year={this.state.year} daysInMonth={this.state.daysInMonth} firstOfMonth={this.state.firstOfMonth} startDay={this.state.startDay} onSelect={this.selectDate} weekNumbers={this.state.weekNumbers} disablePast={this.state.disablePast} minDate={this.state.minDate} />
+                <CalendarNavigation></CalendarNavigation>
+                <CalendarFooter></CalendarFooter>
                 <EventBuble savingMode={this.state.saving}></EventBuble>
+                <CalendarContent month={this.state.month} year={this.state.year} dayNames={this.state.dayNames} startDay={this.state.startDay} weekNumbers={this.state.weekNumbers} daysInMonth={this.state.daysInMonth} fieldsToDisplay={this.state.fieldsToDisplay} handleAddEventSubmit={this.handleAddEventSubmit} events={this.state.events} />
+
             </div>
         </div>
     );
@@ -175,7 +192,26 @@ var EventBuble = React.createClass({
         );
     }
 })
-var WeekDays = React.createClass({
+var CalendarContent = React.createClass({
+    render: function () {
+        return (
+        <div className="r-calendar">
+            <DaysHeader></DaysHeader>
+            <CalendarEventContainer></CalendarEventContainer>
+        </div>
+);
+    }
+})
+var CalendarEventContainer = React.createClass({
+    render: function () {
+        return (
+        <div className="week-row">
+            <WeekRow></WeekRow>
+        </div>
+            )
+    }
+})
+var WeekRow = React.createClass({
     getInitialState: function () {
         return {
             mouseStillDown: false,
@@ -202,7 +238,7 @@ var WeekDays = React.createClass({
         this.forceUpdate();
     },
     render: function () {
-        var daysCount = Array.apply(null, { length: 42 }).map(Number.call, Number);
+        var daysCount = Array.apply(null, { length: 7 }).map(Number.call, Number);
         var startDay = this.props.startDay;
         var year = this.props.year;
         var month = this.props.month;

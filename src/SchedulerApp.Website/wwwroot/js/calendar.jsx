@@ -29,7 +29,7 @@
         var daysInMonths = [31, (((date.getFullYear() % 4 === 0) && (date.getFullYear() % 100 !== 0)) || (date.getFullYear() % 400 === 0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         return {
             events: [],
-            createCal: {},
+            calendarCache: {},
             year: date.getFullYear(),
             month: date.getMonth() + 1,
             selectedYear: date.getFullYear(),
@@ -59,17 +59,17 @@
     },
     createCalendar: function (year, month) {
         {
-           this.state.createCal.cache = {};
+            this.state.calendarCache.cache = {};
             var day = 1, i, j, haveDays = true,
-                    startDay = new Date(year, month, day).getDay(),
-                    daysInMonth = [31, (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-                    calendar = [];
-            if (this.state.createCal.cache[year]) {
-                if (this.state.createCal.cache[year][month]) {
-                    return this.state.createCal.cache[year][month];
+            startDay = new Date(year, month, day).getDay(),
+            daysInMonth = [31, (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+            calendar = [];
+            if (this.state.calendarCache.cache[year]) {
+                if (this.state.calendarCache.cache[year][month]) {
+                    return this.state.calendarCache.cache[year][month];
                 }
             } else {
-                this.state.createCal.cache[year] = {};
+                this.state.calendarCache.cache[year] = {};
             }
             i = 0;
             while (haveDays) {
@@ -93,7 +93,7 @@
                 i++;
             }
             console.log(calendar);
-            this.state.createCal.cache = { calendar: function () { return calendar.clone(); }, label: months[month] + " " + year };
+            this.state.calendarCache.cache = { calendar: function () { return calendar.clone(); }, label: this.state.monthNamesFull[month] + " " + year };
         }
     },
     getPrev: function () { },
@@ -107,7 +107,7 @@
             <div className="r-inner">
                 <Header monthNames={this.state.monthNamesFull} month={this.state.month} year={this.state.year} onPrev={this.getPrev} onNext={this.getNext} />
                 <CalendarNavigation></CalendarNavigation>
-                <CalendarContent month={this.state.month} year={this.state.year} dayNames={this.state.dayNames} startDay={this.state.startDay} weekNumbers={this.state.weekNumbers} daysInMonth={this.state.daysInMonth} fieldsToDisplay={this.state.fieldsToDisplay} handleAddEventSubmit={this.handleAddEventSubmit} events={this.state.events} />
+                <CalendarContent month={this.state.month} year={this.state.year} dayNames={this.state.dayNames} startDay={this.state.startDay} weekNumbers={this.state.weekNumbers} daysInMonth={this.state.daysInMonth} fieldsToDisplay={this.state.fieldsToDisplay} handleAddEventSubmit={this.handleAddEventSubmit} events={this.state.events} calendar={this.state.calendarCache} />
                 <EventBuble savingMode={this.state.saving}></EventBuble>
             </div>
         </div>
@@ -118,6 +118,7 @@
 var CalendarContent = React.createClass({
     render: function () {
         var weeksCount = Array.apply(null, { length: 5 }).map(Number.call, Number);
+        var calendar = this.props.calendar;
         var events = this.props.events;
         var startDay = this.props.startDay;
         var dayNames = this.props.dayNames;
@@ -127,8 +128,8 @@ var CalendarContent = React.createClass({
         return (
        <div className="calendarContent" onMouseDown={this.onMouseDownHandler} onMouseUp={this.onMouseUpHandler}>
            return(<DaysHeader dayNames={dayNames}></DaysHeader>
-           {weeksCount.map(function (weekNumber) {
-               return (<WeekRow month={month} year={year} dayNames={dayNames} startDay={startDay} weekNumber={weekNumber} events={events }></WeekRow>)
+           {weeksCount.map(function (calendar) {
+               return (<WeekRow month={month} year={year} dayNames={dayNames} startDay={startDay} weekNumber={calendar} events={events }></WeekRow>)
            })}
 
        </div>

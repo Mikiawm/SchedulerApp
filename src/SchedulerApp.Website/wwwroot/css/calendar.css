@@ -1,24 +1,17 @@
-﻿.day {
-    width: 50px;
-    height: 50px;
-}
+﻿
 
 .dayHeader {
-    display: inline;
-    padding: .5em 9em;
-    
-    text-align: center;
-    color: #e66b6b;
-    font-weight: 700;
-    text-transform: uppercase;
-    border-style: solid;
-    border-color: #e66b6b;
+    box-sizing: border-box;
+    width: 250px;
+    display:inline-block;
+    text-align:center;
 }
 
 .day {
     display: inline-block;
-    width: 100px;
-    padding: 3.5em 9em;
+    box-sizing: border-box;
+    height:100px;
+    width: 250px;
     text-align: center;
     color: #e66b6b;
     font-weight: 700;
@@ -33,6 +26,11 @@
 .day.editDay {
     background-color: rebeccapurple;
 }
+
+.day.firstDay {
+    background-color: palegreen;
+}
+
 .emptyDayField {
     display: inline-block;
     width: 100px;
@@ -46,5 +44,6 @@
 }
 
 .calendarDays {
-    width: 1806px;
+    width: 100%;
+    box-sizing: border-box;
 }

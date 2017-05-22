@@ -61,7 +61,7 @@
         {
             this.state.calendarCache.cache = {};
             var day = 1, i, j, haveDays = true,
-            startDay = new Date(year, month, day).getDay(),
+            startDay = new Date(year, month, day).getDay() - 1,
             daysInMonth = [31, (((year % 4 === 0) && (year % 100 !== 0)) || (year % 400 === 0)) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
             calendar = [];
             if (this.state.calendarCache.cache[year]) {
@@ -77,13 +77,16 @@
                 for (j = 0; j < 7; j++) {
                     if (i === 0) {
                         if (j === startDay) {
-                            calendar[i][j] = day++;
+                            calendar[i][j] = new Date(year, month, day).toLocaleDateString();
+                            day++;
                             startDay++;
                         }
                     } else if (day <= daysInMonth[month]) {
-                        calendar[i][j] = day++;
+                        
+                        calendar[i][j] = new Date(year, month, day).toLocaleDateString();
+                        day++;
                     } else {
-                        calendar[i][j] = "";
+                        calendar[i][j] = " ";
                         haveDays = false;
                     }
                     if (day > daysInMonth[month]) {
@@ -92,8 +95,7 @@
                 }
                 i++;
             }
-            console.log(calendar);
-            this.state.calendarCache.cache = { calendar: function () { return calendar.clone(); }, label: this.state.monthNamesFull[month] + " " + year };
+            this.state.calendarCache = calendar;
         }
     },
     getPrev: function () { },
@@ -107,7 +109,7 @@
             <div className="r-inner">
                 <Header monthNames={this.state.monthNamesFull} month={this.state.month} year={this.state.year} onPrev={this.getPrev} onNext={this.getNext} />
                 <CalendarNavigation></CalendarNavigation>
-                <CalendarContent month={this.state.month} year={this.state.year} dayNames={this.state.dayNames} startDay={this.state.startDay} weekNumbers={this.state.weekNumbers} daysInMonth={this.state.daysInMonth} fieldsToDisplay={this.state.fieldsToDisplay} handleAddEventSubmit={this.handleAddEventSubmit} events={this.state.events} calendar={this.state.calendarCache} />
+                <CalendarContent dayNames={this.state.dayNames} weekNumbers={this.state.weekNumbers} daysInMonth={this.state.daysInMonth} fieldsToDisplay={this.state.fieldsToDisplay} handleAddEventSubmit={this.handleAddEventSubmit} events={this.state.events} calendar={this.state.calendarCache} />
                 <EventBuble savingMode={this.state.saving}></EventBuble>
             </div>
         </div>
@@ -117,19 +119,15 @@
 
 var CalendarContent = React.createClass({
     render: function () {
-        var weeksCount = Array.apply(null, { length: 5 }).map(Number.call, Number);
         var calendar = this.props.calendar;
         var events = this.props.events;
-        var startDay = this.props.startDay;
         var dayNames = this.props.dayNames;
-        var year = this.props.year;
-        var month = this.props.month;
         var daysInMonth = this.props.daysInMonth;
         return (
        <div className="calendarContent" onMouseDown={this.onMouseDownHandler} onMouseUp={this.onMouseUpHandler}>
-           return(<DaysHeader dayNames={dayNames}></DaysHeader>
-           {weeksCount.map(function (calendar) {
-               return (<WeekRow month={month} year={year} dayNames={dayNames} startDay={startDay} weekNumber={calendar} events={events }></WeekRow>)
+           <DaysHeader dayNames={dayNames}></DaysHeader>
+           {calendar.map(function (week) {
+               return (<WeekRow week={week} weekNumber={calendar.indexOf(week)} events={events}></WeekRow>)
            })}
 
        </div>
@@ -165,16 +163,14 @@ var WeekRow = React.createClass({
         this.forceUpdate();
     },
     render: function () {
-        var daysCount = Array.apply(null, { length: 7 }).map(Number.call, Number);
+        var week = this.props.week;
         var events = this.props.events;
-        var startDay = this.props.startDay;
-        var year = this.props.year;
-        var month = this.props.month;
         var mouseStillDown = this.state.mouseStillDown;
         var addDayToEvent = this.addDayToEvent;
         return (
-       <div className="calendarDays" onMouseDown={this.onMouseDownHandler} onMouseUp={this.onMouseUpHandler}>{daysCount.map(function (dayNumber) {
-               return (<Day dayName={dayNumber} month={month} year={year} mouseStillDown={mouseStillDown} addDayToEvent={addDayToEvent }></Day>)
+       <div className="calendarDays" onMouseDown={this.onMouseDownHandler} onMouseUp={this.onMouseUpHandler}>
+           {week.map(function (dayName) {
+               return (<Day dayName={dayName} mouseStillDown={mouseStillDown} addDayToEvent={addDayToEvent }></Day>)
            })}{events.map(function (event) {
                return (<Event></Event>)
            })}
@@ -192,10 +188,9 @@ var Day = React.createClass({
             isClicked: false,
             isEditMode: false,
             mouseDownTime: 0,
-            className: "",
+            className: this.props.dayName.substring(0,2) === '1.' ? "firstDay" : "",
             mouseStillDown: false,
-            dayDate: new Date(this.props.year, this.props.month, this.props.Number).getDay(),
-            dayDateFull: this.props.year + "-" + this.dateChanger(this.props.month) + "-" + this.dateChanger(this.props.Number)
+            dayDate: this.props.dayName
         };
     },
     onClickHandler: function () {
@@ -240,6 +235,7 @@ var Day = React.createClass({
         if (this.state.mouseStillDown) { setInterval(this.doSomething, 1000); }
     },
     render: function () {
+        console.log(this.props.dayName[0]);
         return (
         <div className={"day " + this.state.className}
              onClick={this.onClickHandler}
@@ -280,7 +276,10 @@ var CalendarNavigation = React.createClass({
 
 });
 var Header = React.createClass({
-    render: function () { return (<div>{this.props.monthNames[this.props.month]}</div>) }
+    render: function () {
+        return null
+        
+    }
 });
 var DayHeader = React.createClass({
     render: function () { return (<div className="dayHeader">{this.props.dayName}</div>) }

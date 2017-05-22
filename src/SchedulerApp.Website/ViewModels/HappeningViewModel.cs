@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SchedulerApp.Data.Configuration;
+using System.Globalization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,31 +14,31 @@ namespace SchedulerApp.Website.ViewModels
     {
         public int? EventId { get; set; }
         public string Name { get; set; }
-        public DateTime DateFrom { get; set; }
-        public DateTime DateTo { get; set; }
+        public string DateFrom { get; set; }
+        public string DateTo { get; set; }
 
 
         public HappeningViewModel()
         {
             EventId = 0;
             Name = "BasicConstructor";
-            DateFrom = DateTime.Today;
-            DateTo = DateTime.Today.AddDays(1);
+            DateFrom = DateTime.Today.ToString("g").Replace('/', '.');
+            DateTo = DateTime.Today.AddDays(1).ToString("g").Replace('/', '.');
         }
 
         public HappeningViewModel(int? id, string name, DateTime dateFrom, DateTime dateTo)
         {
             EventId = id;
             Name = name;
-            DateFrom = dateFrom;
-            DateTo = dateTo;
+            DateFrom = dateFrom.ToString("dd.M.yyyy", CultureInfo.InvariantCulture);
+            DateTo = dateTo.ToString("dd.M.yyyy", CultureInfo.InvariantCulture);
         }
 
         public HappeningViewModel(DateTime dateFrom, DateTime dateTo)
         {
             Name = "Custom";
-            this.DateFrom = dateFrom;
-            this.DateTo = dateTo;
+            this.DateFrom = dateFrom.ToString("g").Replace('/', '.');
+            this.DateTo = dateTo.ToString("g").Replace('/', '.'); 
         }
 
         internal static List<HappeningViewModel> DisplayHappenings(IEnumerable<Happening> happenings)

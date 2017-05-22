@@ -127,6 +127,7 @@ var CalendarContent = React.createClass({
        <div className="calendarContent" onMouseDown={this.onMouseDownHandler} onMouseUp={this.onMouseUpHandler}>
            <DaysHeader dayNames={dayNames}></DaysHeader>
            {calendar.map(function (week) {
+               console.log(week);
                return (<WeekRow week={week} weekNumber={calendar.indexOf(week)} events={events}></WeekRow>)
            })}
 
@@ -201,7 +202,6 @@ var Day = React.createClass({
             this.state.className = this.state.isClicked ? "" : "clickedDay";
             this.state.isClicked = !this.state.isClicked;
             this.forceUpdate();
-            console.log(this.props);
         }
     },
     onMouseEnterHandler: function () {
@@ -235,7 +235,6 @@ var Day = React.createClass({
         if (this.state.mouseStillDown) { setInterval(this.doSomething, 1000); }
     },
     render: function () {
-        console.log(this.props.dayName[0]);
         return (
         <div className={"day " + this.state.className}
              onClick={this.onClickHandler}
